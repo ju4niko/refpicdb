@@ -1,0 +1,4 @@
+172.17.0.1 - - [17/Oct/2023:15:37:53 +0000] "GET / HTTP/1.1" 200 1618 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+172.17.0.1 - - [17/Oct/2023:15:37:53 +0000] "GET /iconos/banner.png HTTP/1.1" 404 487 "http://127.0.0.1/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+172.17.0.1 - - [17/Oct/2023:15:37:53 +0000] "GET /iconos/ACDA.png HTTP/1.1" 404 487 "http://127.0.0.1/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+172.17.0.1 - - [17/Oct/2023:15:37:54 +0000] "GET /favicon.ico HTTP/1.1" 404 487 "http://127.0.0.1/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
