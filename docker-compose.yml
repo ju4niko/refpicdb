@@ -3,7 +3,7 @@ services:
   web:
     image: tiroserver:latest  # Usa la imagen 'tiroserver' que ya tienes
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./web;C:/var/www/html  # Usa el nombre de la carpeta "web;C"
     links:
@@ -12,8 +12,8 @@ services:
   db:
     image: mariadb:latest
     environment:
-      MYSQL_ROOT_PASSWORD: your-root-password
-      MYSQL_DATABASE: your-database-name
+      MYSQL_ROOT_PASSWORD: tiro_db_root 
+      MYSQL_DATABASE: tiro_db
     volumes:
       - ./db;C:/var/lib/mysql  # Usa el nombre de la carpeta "db;C"
 

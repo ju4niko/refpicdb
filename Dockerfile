@@ -6,6 +6,7 @@ RUN apt-get update
 RUN apt-get -y install apache2
 RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
+RUN apt-get install -y mysql-client
 
 #RUN apt-get -y install python-pil python-matplotlib python-scipy python-sklearn
 RUN pip install reportlab
