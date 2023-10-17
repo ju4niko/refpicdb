@@ -1,15 +1,58 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
+import cgitb, cgi, datetime, sys, re
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import BaseDocTemplate, SimpleDocTemplate, Paragraph, Table, Frame, PageTemplate,TableStyle, PageBreak
+from html import escape
+from reportlab.lib.units import inch
+from reportlab.lib.units import cm
+
+
 import random
 import math
 
+cgitb.enable(display=0, logdir='./log')
+
+SYS_NAME='NUMEROL SERVER'
+VERSION='1.1'
+DEF_BKGD="#EFEFEF"
+
+form = cgi.FieldStorage()
+
+angulo = float(form.getvalue("elevacion"))
+direccion = int(form.getvalue("azimut"))
+N = int(form.getvalue("salva"))
+dispersion = int(form.getvalue("dispersion")    )
+mortero = form.getvalue('mortero')
+latitud_inicial = float(form.getvalue('latitud')   )
+longitud_inicial = float(form.getvalue('longitud')    )
+
+# Datos de coordenadas tres puntos de interes
+punto1 = form.getvalue("punto1")
+lat1 = float(form.getvalue('lat1'))
+lng1 = float(form.getvalue('lng1'))
+punto2 = form.getvalue("punto2")
+lat2 = float(form.getvalue('lat2'))
+lng2 = float(form.getvalue('lng2'))
+punto3 = form.getvalue("punto3")
+lat3 = float(form.getvalue('lat3'))
+lng3 = float(form.getvalue('lng3'))
+
 def generar_codigo_html(coordenadas, api_key):
+
     latitudes = [coord[0] for coord in coordenadas]
     longitudes = [coord[1] for coord in coordenadas]
+    X = (coordenadas[0][0] + coordenadas[numCoordenadas - 1][0]) / 2;
+    Y = (coordenadas[0][1] + coordenadas[numCoordenadas - 1][1]) / 2;
 
     latitud_media = (max(latitudes) + min(latitudes)) / 2
     longitud_media = (max(longitudes) + min(longitudes)) / 2
 
-    print("<!DOCTYPE html>")
+    #print("<!DOCTYPE html>")
+    print('Content-Type:text/html;charset=utf-8\r\n')
+    print('\r\n')
     print("<html>")
     print("  <head>")
     print(f"    <title>Mapa con Coordenadas</title>")
@@ -24,7 +67,7 @@ def generar_codigo_html(coordenadas, api_key):
     print(f'          center: {{ lat: {latitud_media:.6f}, lng: {longitud_media:.6f} }},')
     print("          mapTypeId: google.maps.MapTypeId.SATELLITE")
     print("        });")
-
+	#Recorrer las coordenadas y agregar marcadores
     for i, (lat, lng) in enumerate(coordenadas):
         print(f'        new google.maps.Marker({{')
         print(f'          position: {{ lat: {lat:.6f}, lng: {lng:.6f} }},')
@@ -37,22 +80,107 @@ def generar_codigo_html(coordenadas, api_key):
             print(f'          label: "{i}"')
         print("        });")
 
+        # Agregar el círculo centrado en las mismas coordenadas
+        if i != 0 and i != len(coordenadas)-1:
+          print(f'        new google.maps.Circle({{')
+          print(f'          strokeColor: "#FF0000",')
+          print('          strokeOpacity: 0.8,')
+          print('          strokeWeight: 2,')
+          print('          fillColor: "#600000",')
+          print('          fillOpacity: 0.35,')
+          print(f'          map: map,')
+          print(f'          center: {{ lat: {lat:.6f}, lng: {lng:.6f} }},')
+          print(f'          radius: {ammoDR}')  # Radio de mortalidad en metros
+          print('        });')
+
+	#agrego puntos de interes
+
+    print(f'        new google.maps.Circle({{')
+    print(f'          strokeColor: "#7000FF",')
+    print('          strokeOpacity: 0.8,')
+    print('          strokeWeight: 2,')
+    print('          fillColor: "#700070",')
+    print('          fillOpacity: 0.35,')
+    print(f'          map: map,')
+    print(f'          center: {{ lat: {lat1:.6f}, lng: {lng1:.6f} }},')
+    print(f'          radius: 5')
+    print('        });')
+    print(f'        new google.maps.Circle({{')
+    print(f'          strokeColor: "#7000FF",')
+    print('          strokeOpacity: 0.8,')
+    print('          strokeWeight: 2,')
+    print('          fillColor: "#700070",')
+    print('          fillOpacity: 0.35,')
+    print(f'          map: map,')
+    print(f'          center: {{ lat: {lat2:.6f}, lng: {lng2:.6f} }},')
+    print(f'          radius: 5')
+    print('        });')
+    print(f'        new google.maps.Circle({{')
+    print(f'          strokeColor: "#7000FF",')
+    print('          strokeOpacity: 0.8,')
+    print('          strokeWeight: 2,')
+    print('          fillColor: "#700070",')
+    print('          fillOpacity: 0.35,')
+    print(f'          map: map,')
+    print(f'          center: {{ lat: {lat3:.6f}, lng: {lng3:.6f} }},')
+    print(f'          radius: 5')
+    print('        });')
+
+        # Agregar una etiqueta de texto cerca del círculo
+    print(f'        var centerLatLng = new google.maps.LatLng({lat1:.6f}, {lng1:.6f});')
+    print("        var textoEnCentro = new google.maps.InfoWindow({")
+    print(f'          content: "{punto1}",')
+    print("        });");
+    print("        textoEnCentro.setPosition(centerLatLng);")
+    print("        textoEnCentro.open(map);")
+
+    print(f'        var centerLatLng = new google.maps.LatLng({lat2:.6f}, {lng2:.6f});')
+    print("        var textoEnCentro = new google.maps.InfoWindow({")
+    print(f'          content: "{punto2}",')
+    print("        });");
+    print("        textoEnCentro.setPosition(centerLatLng);")
+    print("        textoEnCentro.open(map);")
+
+    print(f'        var centerLatLng = new google.maps.LatLng({lat3:.6f}, {lng3:.6f});')
+    print("        var textoEnCentro = new google.maps.InfoWindow({")
+    print(f'          content: "{punto3}",')
+    print("        });");
+    print("        textoEnCentro.setPosition(centerLatLng);")
+    print("        textoEnCentro.open(map);")
+
+
+	#Agregar una línea con forma de flecha entre el primer y último punto con texto en el centro
     print("        var flightPath = new google.maps.Polyline({")
     print("          path: [")
-    for lat, lng in coordenadas:
-        print(f'            {{ lat: {lat:.6f}, lng: {lng:.6f} }},')
+    #for lat, lng in coordenadas:
+    print(f'            {{ lat: {coordenadas[0][0]:.6f}, lng: {coordenadas[0][1]:.6f} }},')
+    print(f'            {{ lat: {coordenadas[numCoordenadas - 1][0]:.6f}, lng: {coordenadas[numCoordenadas - 1][1]:.6f} }}')
     print("          ],")
     print("          geodesic: true,")
     print("          icons: [{")
     print('            icon: { path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW },')
     print("            offset: '100%',")
     print("          }],")
-    print("          strokeColor: '#FF0000',")
+    print("          strokeColor: '#FFFF00',")
     print("          strokeOpacity: 1.0,")
-    print("          strokeWeight: 2")
+    print("          strokeWeight: 5")
     print("        });")
-
     print("        flightPath.setMap(map);")
+
+    #Crear un texto en el centro de la línea
+    print(f'        var centerLatLng = new google.maps.LatLng({X:.6f}, {Y:.6f});')
+    print("        var textoEnCentro = new google.maps.InfoWindow({")
+    print(f'          content: "{distancia:.2f} m, {ammoType}",')
+    print("        });");
+    print("        textoEnCentro.setPosition(centerLatLng);")
+    print("        textoEnCentro.open(map);")
+
+
+
+
+
+
+
     print("      }")
     print("    </script>")
     print("    <script>")
@@ -108,33 +236,31 @@ def calcular_coordenadas_impacto(latitud_inicial, longitud_inicial, direccion, d
 
     return latitud_impacto, longitud_impacto
 
-def main():
-    if len(sys.argv) != 7:
-        print("Uso: {} <Lat> <Long> <disparos> <azimut> <direccion> <dispersion>".format(sys.argv[0]))
-        return 1
+##################### MAIN ######################
 
-    latitud_inicial = float(sys.argv[1])
-    longitud_inicial = float(sys.argv[2])
-    N = int(sys.argv[3])
-    angulo = float(sys.argv[4])
-    direccion = float(sys.argv[5])
-    dispersion = float(sys.argv[6])
 
-    distancia = calcular_distancia_proyectil(angulo, 90)
-    latitud_impacto, longitud_impacto = calcular_coordenadas_impacto(latitud_inicial, longitud_inicial, direccion, distancia)
+#caracteristicas de la municion, velocidad inicial y radio de letalidad
+ammoVi = 44
+ammoDR = 5
+ammoType = 'HE-60mm'
 
-    coordenadas = [(latitud_inicial, longitud_inicial)]
-    for _ in range(N):
-        latitud = add_wobble(latitud_impacto, dispersion / 10000000)
-        longitud = add_wobble(longitud_impacto, dispersion / 10000000)
-        coordenadas.append((latitud, longitud))
+distancia = calcular_distancia_proyectil(angulo, ammoVi)
 
-    coordenadas.append((latitud_impacto, longitud_impacto))
+latitud_impacto, longitud_impacto = calcular_coordenadas_impacto(latitud_inicial, longitud_inicial, direccion, distancia)
 
-    api_key = "AIzaSyA5FuC-FpZNRVKEl2ZxzEm4DLoC9Mkgg3Y"
+coordenadas = [(latitud_inicial, longitud_inicial)]
+for _ in range(N):
+    latitud = add_wobble(latitud_impacto, dispersion / 10000000)
+    longitud = add_wobble(longitud_impacto, dispersion / 10000000)
+    coordenadas.append((latitud, longitud))
 
-    generar_codigo_html(coordenadas, api_key)
+coordenadas.append((latitud_impacto, longitud_impacto))
 
-if __name__ == "__main__":
-    import sys
-    main()
+numCoordenadas = len(coordenadas)
+
+api_key = "AIzaSyA5FuC-FpZNRVKEl2ZxzEm4DLoC9Mkgg3Y"
+
+
+
+generar_codigo_html(coordenadas, api_key)
+

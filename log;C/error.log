@@ -1,8 +1,0 @@
-AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
-[Tue Oct 17 15:32:46.830306 2023] [core:warn] [pid 9:tid 281473760731168] AH00098: pid file /var/run/apache2/apache2.pid overwritten -- Unclean shutdown of previous Apache run?
-[Tue Oct 17 15:32:46.831615 2023] [mpm_event:notice] [pid 9:tid 281473760731168] AH00489: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
-[Tue Oct 17 15:32:46.832687 2023] [core:notice] [pid 9:tid 281473760731168] AH00094: Command line: '/usr/sbin/apache2 -D FOREGROUND'
-AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
-[Tue Oct 17 15:37:25.232834 2023] [core:warn] [pid 9:tid 281473669312544] AH00098: pid file /var/run/apache2/apache2.pid overwritten -- Unclean shutdown of previous Apache run?
-[Tue Oct 17 15:37:25.234811 2023] [mpm_event:notice] [pid 9:tid 281473669312544] AH00489: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
-[Tue Oct 17 15:37:25.238262 2023] [core:notice] [pid 9:tid 281473669312544] AH00094: Command line: '/usr/sbin/apache2 -D FOREGROUND'
