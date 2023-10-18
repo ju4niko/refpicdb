@@ -13,9 +13,158 @@ from reportlab.lib.units import cm
 import random
 import math
 
+BOMBAZO="#FF0000"
+BOMBAZO_FILL="#8F0000"
+POI_A="#FF00FF"
+POI_A_FILL="#7F007F"
+POI_B="#00FFFF"
+POI_B_FILL="#6F6F00"
+AMARILLO="#FFFF00"
+
+################################################################################
+################################################################################
+class GoogleMapsHelper:
+    def __init__(self):
+        self.objects = []
+
+    def add_circle(self, lat, lng, radius, stroke_color=BOMBAZO, fill_color=BOMBAZO_FILL, stroke_opacity=0.8, fill_opacity=0.35):
+        circle = {
+            "type": "circle",
+            "lat": lat,
+            "lng": lng,
+            "radius": radius,
+            "stroke_color": stroke_color,
+            "fill_color": fill_color,
+            "stroke_opacity": stroke_opacity,
+            "fill_opacity": fill_opacity,
+        }
+        self.objects.append(circle)
+
+    def add_text_label(self, lat, lng, content):
+        text_label = {
+            "type": "text_label",
+            "lat": lat,
+            "lng": lng,
+            "content": content,
+        }
+        self.objects.append(text_label)
+
+    def add_marker(self, lat, lng, valor):
+        marker = {
+            "type": "marker",
+            "lat": lat,
+            "lng": lng,
+            "label": valor,
+        }
+        self.objects.append(marker)
+
+    def add_line(self,x0,y0,x1,y1,color,grosor):
+        linea = {
+            "type": "linea",
+            "x0": x0,
+            "y0": y0,
+            "x1": x1,
+            "y1": y1,
+            "stroke_color": color,
+            "grosor": grosor,
+        }
+        self.objects.append(linea)
+
+    def add_flecha(self,x0,y0,x1,y1,color=AMARILLO,grosor=5):
+        linea = {
+            "type": "linea",
+            "x0": x0,
+            "y0": y0,
+            "x1": x1,
+            "y1": y1,
+            "stroke_color": color,
+            "grosor": grosor,
+        }
+        self.objects.append(linea)
+
+    def add_square(self, lat, lng, size, stroke_color=POI_A, fill_color=POI_B, stroke_opacity=0.8, fill_opacity=0.35):
+
+
+        square = {
+            "type": "square",
+            "lat": lat,
+            "lng": lng,
+            "size": size/55560,
+            "stroke_color": stroke_color,
+            "fill_color": fill_color,
+            "stroke_opacity": stroke_opacity,
+            "fill_opacity": fill_opacity,
+        }
+        self.objects.append(square)
+
+
+    def generate_js_code(self):
+        js_code = []
+        for obj in self.objects:
+            if obj["type"] == "circle":
+                js_code.append(f'new google.maps.Circle({{')
+                js_code.append(f'  strokeColor: "{obj["stroke_color"]}",')
+                js_code.append(f'  strokeOpacity: {obj["stroke_opacity"]},')
+                js_code.append('  strokeWeight: 2,')
+                js_code.append(f'  fillColor: "{obj["fill_color"]}",')
+                js_code.append(f'  fillOpacity: {obj["fill_opacity"]},')
+                js_code.append(f'  map: map,')
+                js_code.append(f'  center: {{ lat: {obj["lat"]:.6f}, lng: {obj["lng"]:.6f} }},')
+                js_code.append(f'  radius: {obj["radius"]}')
+                js_code.append('});')
+            elif obj["type"] == "text_label":
+                js_code.append(f'var centerLatLng = new google.maps.LatLng({obj["lat"]:.6f}, {obj["lng"]:.6f});')
+                js_code.append("var textoEnCentro = new google.maps.InfoWindow({")
+                js_code.append(f'  content: "{obj["content"]}",')
+                js_code.append("});")
+                js_code.append("textoEnCentro.setPosition(centerLatLng);")
+                js_code.append("textoEnCentro.open(map);")
+            elif obj["type"] == "marker":
+                js_code.append(f'new google.maps.Marker({{')
+                js_code.append(f' position: {{ lat: {obj["lat"]:.6f}, lng: {obj["lng"]:.6f} }},')
+                js_code.append(f'  map: map,')
+                js_code.append(f'  label: "{obj["label"]}"')
+                js_code.append('});')
+            elif obj["type"] == "linea" or obj["type"] == "flecha":
+                js_code.append("        var flightPath = new google.maps.Polyline({")
+                js_code.append("          path: [")
+                js_code.append(f'            {{ lat: {obj["x0"]:.6f}, lng: {obj["y0"]:.6f} }},')
+                js_code.append(f'            {{ lat: {obj["x1"]:.6f}, lng: {obj["y1"]:.6f} }},')
+                js_code.append("          ],")
+                js_code.append("          geodesic: true,")
+                if obj["type"] == "flecha":
+                    js_code.append("          icons: [{")
+                    js_code.append('            icon: { path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW },')
+                    js_code.append("            offset: '100%',")
+                    js_code.append("          }],")
+                js_code.append(f'  strokeColor: "{obj["stroke_color"]}",')
+                js_code.append(f'  strokeWeight: {obj["grosor"]},')
+                js_code.append("        });")
+                js_code.append("        flightPath.setMap(map);")
+            elif obj["type"] == "square":
+                half_size = obj["size"] / 2
+                js_code.append(f'new google.maps.Rectangle({{')
+                js_code.append(f'  strokeColor: "{obj["stroke_color"]}",')
+                js_code.append(f'  strokeOpacity: {obj["stroke_opacity"]},')
+                js_code.append(f'  fillColor: "{obj["fill_color"]}",')
+                js_code.append(f'  fillOpacity: {obj["fill_opacity"]},')
+                js_code.append(f'  map: map,')
+                js_code.append(f'  bounds: {{')
+                js_code.append(f'    north: {obj["lat"] + half_size:.6f},')
+                js_code.append(f'    south: {obj["lat"] - half_size:.6f},')
+                js_code.append(f'    east: {obj["lng"] + half_size:.6f},')
+                js_code.append(f'    west: {obj["lng"] - half_size:.6f}')
+                js_code.append('  }')
+                js_code.append('});')
+
+        return "\n".join(js_code)
+################################################################################
+
+
+
 cgitb.enable(display=0, logdir='./log')
 
-SYS_NAME='NUMEROL SERVER'
+SYS_NAME='TIRO SERVER'
 VERSION='1.1'
 DEF_BKGD="#EFEFEF"
 
@@ -39,6 +188,8 @@ lng2 = float(form.getvalue('lng2'))
 punto3 = form.getvalue("punto3")
 lat3 = float(form.getvalue('lat3'))
 lng3 = float(form.getvalue('lng3'))
+
+################################################################################
 
 def generar_codigo_html(coordenadas, api_key):
 
@@ -67,120 +218,44 @@ def generar_codigo_html(coordenadas, api_key):
     print(f'          center: {{ lat: {latitud_media:.6f}, lng: {longitud_media:.6f} }},')
     print("          mapTypeId: google.maps.MapTypeId.SATELLITE")
     print("        });")
+
+    #creo objeto para agregar items al mapa
+    gmaps = GoogleMapsHelper()
+
 	#Recorrer las coordenadas y agregar marcadores
     for i, (lat, lng) in enumerate(coordenadas):
-        print(f'        new google.maps.Marker({{')
-        print(f'          position: {{ lat: {lat:.6f}, lng: {lng:.6f} }},')
-        print("          map: map,")
+
         if i == 0:
-            print('          label: "Mtr"')
+            gmaps.add_marker(lat,lng,"Mtr")
         elif i == len(coordenadas) - 1:
-            print('          label: "Obj"')
+            gmaps.add_marker(lat,lng,"Obj")
         else:
-            print(f'          label: "{i}"')
-        print("        });")
+            gmaps.add_marker(lat,lng,f'{i}')
 
         # Agregar el círculo centrado en las mismas coordenadas
+        #se saltea el origen y destino
         if i != 0 and i != len(coordenadas)-1:
-          print(f'        new google.maps.Circle({{')
-          print(f'          strokeColor: "#FF0000",')
-          print('          strokeOpacity: 0.8,')
-          print('          strokeWeight: 2,')
-          print('          fillColor: "#600000",')
-          print('          fillOpacity: 0.35,')
-          print(f'          map: map,')
-          print(f'          center: {{ lat: {lat:.6f}, lng: {lng:.6f} }},')
-          print(f'          radius: {ammoDR}')  # Radio de mortalidad en metros
-          print('        });')
+            gmaps.add_circle(lat,lng,ammoDR)
 
-	#agrego puntos de interes
+	#cuadrados en puntos de inrteres
+    gmaps.add_square(lat1,lng1,5)
+    gmaps.add_square(lat2,lng2,5)
+    gmaps.add_square(lat3,lng3,5)
 
-    print(f'        new google.maps.Circle({{')
-    print(f'          strokeColor: "#7000FF",')
-    print('          strokeOpacity: 0.8,')
-    print('          strokeWeight: 2,')
-    print('          fillColor: "#700070",')
-    print('          fillOpacity: 0.35,')
-    print(f'          map: map,')
-    print(f'          center: {{ lat: {lat1:.6f}, lng: {lng1:.6f} }},')
-    print(f'          radius: 5')
-    print('        });')
-    print(f'        new google.maps.Circle({{')
-    print(f'          strokeColor: "#7000FF",')
-    print('          strokeOpacity: 0.8,')
-    print('          strokeWeight: 2,')
-    print('          fillColor: "#700070",')
-    print('          fillOpacity: 0.35,')
-    print(f'          map: map,')
-    print(f'          center: {{ lat: {lat2:.6f}, lng: {lng2:.6f} }},')
-    print(f'          radius: 5')
-    print('        });')
-    print(f'        new google.maps.Circle({{')
-    print(f'          strokeColor: "#7000FF",')
-    print('          strokeOpacity: 0.8,')
-    print('          strokeWeight: 2,')
-    print('          fillColor: "#700070",')
-    print('          fillOpacity: 0.35,')
-    print(f'          map: map,')
-    print(f'          center: {{ lat: {lat3:.6f}, lng: {lng3:.6f} }},')
-    print(f'          radius: 5')
-    print('        });')
-
-        # Agregar una etiqueta de texto cerca del círculo
-    print(f'        var centerLatLng = new google.maps.LatLng({lat1:.6f}, {lng1:.6f});')
-    print("        var textoEnCentro = new google.maps.InfoWindow({")
-    print(f'          content: "{punto1}",')
-    print("        });");
-    print("        textoEnCentro.setPosition(centerLatLng);")
-    print("        textoEnCentro.open(map);")
-
-    print(f'        var centerLatLng = new google.maps.LatLng({lat2:.6f}, {lng2:.6f});')
-    print("        var textoEnCentro = new google.maps.InfoWindow({")
-    print(f'          content: "{punto2}",')
-    print("        });");
-    print("        textoEnCentro.setPosition(centerLatLng);")
-    print("        textoEnCentro.open(map);")
-
-    print(f'        var centerLatLng = new google.maps.LatLng({lat3:.6f}, {lng3:.6f});')
-    print("        var textoEnCentro = new google.maps.InfoWindow({")
-    print(f'          content: "{punto3}",')
-    print("        });");
-    print("        textoEnCentro.setPosition(centerLatLng);")
-    print("        textoEnCentro.open(map);")
-
+    # Agregar una etiqueta de texto cerca de los POI
+    gmaps.add_text_label(lat1,lng1,punto1)
+    gmaps.add_text_label(lat2,lng2,punto2)
+    gmaps.add_text_label(lat3,lng3,punto3)
 
 	#Agregar una línea con forma de flecha entre el primer y último punto con texto en el centro
-    print("        var flightPath = new google.maps.Polyline({")
-    print("          path: [")
-    #for lat, lng in coordenadas:
-    print(f'            {{ lat: {coordenadas[0][0]:.6f}, lng: {coordenadas[0][1]:.6f} }},')
-    print(f'            {{ lat: {coordenadas[numCoordenadas - 1][0]:.6f}, lng: {coordenadas[numCoordenadas - 1][1]:.6f} }}')
-    print("          ],")
-    print("          geodesic: true,")
-    print("          icons: [{")
-    print('            icon: { path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW },')
-    print("            offset: '100%',")
-    print("          }],")
-    print("          strokeColor: '#FFFF00',")
-    print("          strokeOpacity: 1.0,")
-    print("          strokeWeight: 5")
-    print("        });")
-    print("        flightPath.setMap(map);")
+    gmaps.add_flecha(coordenadas[0][0],coordenadas[0][1],coordenadas[numCoordenadas - 1][0],coordenadas[numCoordenadas - 1][1])
 
     #Crear un texto en el centro de la línea
-    print(f'        var centerLatLng = new google.maps.LatLng({X:.6f}, {Y:.6f});')
-    print("        var textoEnCentro = new google.maps.InfoWindow({")
-    print(f'          content: "{distancia:.2f} m, {ammoType}",')
-    print("        });");
-    print("        textoEnCentro.setPosition(centerLatLng);")
-    print("        textoEnCentro.open(map);")
+    gmaps.add_text_label(X,Y,f'{distancia:.2f} m, {ammoType}')
 
+    print(gmaps.generate_js_code())
 
-
-
-
-
-
+	#cierre del HTML
     print("      }")
     print("    </script>")
     print("    <script>")
@@ -188,6 +263,8 @@ def generar_codigo_html(coordenadas, api_key):
     print("    </script>")
     print("  </body>")
     print("</html>")
+
+################################################################################
 
 def add_wobble(valor_inicial, porcentaje_maximo):
     # Generar un número aleatorio entre -1 y 1
@@ -200,6 +277,7 @@ def add_wobble(valor_inicial, porcentaje_maximo):
     valor_final = valor_inicial + valor_aleatorio
 
     return valor_final
+################################################################################
 
 def calcular_distancia_proyectil(angulo, velocidad_inicial):
     gravedad = 9.81
@@ -211,6 +289,7 @@ def calcular_distancia_proyectil(angulo, velocidad_inicial):
     distancia = (velocidad_inicial ** 2 * math.sin(2 * angulo_radianes)) / gravedad
 
     return distancia
+################################################################################
 
 def calcular_coordenadas_impacto(latitud_inicial, longitud_inicial, direccion, distancia):
     radio_tierra = 6371000
@@ -235,6 +314,7 @@ def calcular_coordenadas_impacto(latitud_inicial, longitud_inicial, direccion, d
     longitud_impacto = math.degrees(nueva_longitud_radianes)
 
     return latitud_impacto, longitud_impacto
+################################################################################
 
 ##################### MAIN ######################
 
@@ -259,7 +339,6 @@ coordenadas.append((latitud_impacto, longitud_impacto))
 numCoordenadas = len(coordenadas)
 
 api_key = "AIzaSyA5FuC-FpZNRVKEl2ZxzEm4DLoC9Mkgg3Y"
-
 
 
 generar_codigo_html(coordenadas, api_key)

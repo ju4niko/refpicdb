@@ -6,6 +6,7 @@ services:
       - "80:80"
     volumes:
       - ./web;C:/var/www/html  # Usa el nombre de la carpeta "web;C"
+      - ./log;C:/var/log/apache2
     links:
       - db
 
