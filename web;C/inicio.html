@@ -1,0 +1,164 @@
+
+<html>
+
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+        <meta http-equiv="Expires" content="Fri, Jun 12 1981 08:20:00 GMT">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-cache">
+
+        <title>TIRO Web Server</title>
+        <style>
+
+
+            form {
+  /* Center the form on the page */
+  margin: 0 auto;
+  width: 500px;
+  /* Form outline */
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 1em;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+form li + li {
+  margin-top: 1em;
+}
+
+label {
+  /* Uniform size & alignment */
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+}
+
+input,
+textarea {
+  /* To make sure that all text fields have the same font settings
+     By default, textareas have a monospace font */
+  font: 1em sans-serif;
+
+  /* Uniform text field size */
+  width: 300px;
+  box-sizing: border-box;
+
+  /* Match form field borders */
+  border: 2px solid #999;
+}
+
+input:focus,
+textarea:focus {
+  /* Additional highlight for focused elements */
+  border-color: #000;
+}
+
+textarea {
+  /* Align multiline text fields with their labels */
+  vertical-align: top;
+
+  /* Provide space to type some text */
+  height: 5em;
+}
+
+.button {
+  /* Align buttons with the text fields */
+  padding-left: 90px; /* same size as the label elements */
+}
+
+button {
+  /* This extra margin represent roughly the same space as the space
+     between the labels and their text fields */
+  margin-left: 0.5em;
+}
+
+body {
+    background-image: url('iconos/ACDA.png');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+
+        </style>
+	</head>
+
+	<body>
+
+
+
+    <center><img src="iconos/banner.png"  width=150/></center>
+		<br/>
+		<hr style="color: rgb(255,100,100)"/>
+		<br/>
+		<center style=color:rgb (193,38,48); font -family: Tahoma, sans-serif; font-size:28px>
+            <div id="form"></div>
+
+			<form action="/tiro.py" method="post">
+				<ul>
+					MORTERO
+					<li>
+						M19 <input type="radio" name="escritura" value="M19" id="M19" checked><br>
+						M2  <input type="radio" name="escritura" value="M2" id="M2">
+					</li>
+				</ul>
+
+				<div class="section">
+					<h2>Datos del Mortero</h2>
+					<label for="latitud">Latitud:</label>
+					<input type="number" name="latitud" id="latitud" step="any" required><br>
+
+					<label for="longitud">Longitud:</label>
+					<input type="number" name="longitud" id="longitud" step="any" required><br>
+
+					<label for="azimut">Azimut:</label>
+					<input type="number" name="azimut" id="azimut" step="any" required><br>
+
+					<label for="elevacion">Elevacion:</label>
+					<input type="number" name="elevacion" id="elevacion" step="any" required><br>
+
+					<label for="salva">Salva:</label>
+					<input type="number" name="salva" id="salva" step="any" required><br>
+
+					<label for="dispersion">Dsipersion:</label>
+					<input type="number" name="dispersion" id="dispersion" step="any" required><br>
+				</div>
+
+				<div class="section">
+					<h2>Coordenadas</h2>
+					<label for="punto1">Punto 1:</label>
+					<input type="text" id="punto1" name="punto1" placeholder="Nombre">
+					<input type="text" id="lat1" name="lat1" placeholder="Latitud">
+					<input type="text" id="lng1" name="lng1" placeholder="Longitud"><br>
+
+					<label for="punto2">Punto 2:</label>
+					<input type="text" id="punto2" name="punto2" placeholder="Nombre">
+					<input type="text" id="lat2" name="lat2" placeholder="Latitud">
+					<input type="text" id="lng2" name="lng2" placeholder="Longitud"><br>
+
+					<label for="punto3">Punto 3:</label>
+					<input type="text" id="punto3" name="punto3" placeholder="Nombre">
+					<input type="text" id="lat3" name="lat3" placeholder="Latitud">
+					<input type="text" id="lng3" name="lng3" placeholder="Longitud"><br>
+				</div>
+
+				<li class="button">
+					<button type="submit">FUEGO!</button>
+				</li>
+			</form>
+
+
+			<h4>TIRO Server (c) JAM 2023 : Hosted on Docker</h4>
+		</center>
+
+
+	</body>
+</html>
+
