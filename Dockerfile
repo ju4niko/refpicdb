@@ -9,6 +9,7 @@ RUN apt-get -y install python3
 RUN apt-get -y install python3-pip
 RUN apt-get install -y mysql-client
 RUN pip install flask
+RUN pip3 install pymysql
 
 #RUN apt-get -y install python-pil python-matplotlib python-scipy python-sklearn
 RUN pip install reportlab

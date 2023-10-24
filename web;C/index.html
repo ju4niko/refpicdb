@@ -8,7 +8,17 @@
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Cache-Control" content="no-cache">
 
+
+
+
+
+
         <title>TIRO Web Server</title>
+
+            <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+            <link rel="stylesheet" type="text/css" href="style/style.css" />
+
+
         <style>
 
 
@@ -24,15 +34,19 @@
 		<hr style="color: rgb(255,100,100)"/>
 		<br/>
 		<center style=color:rgb (193,38,48); font -family: Tahoma, sans-serif; font-size:28px>
-            <div id="form"></div>
-
-			<form action="/index.py" method="post">
 
 
-				<li class="button">
-					<button type="submit">INGRESAR</button>
-				</li>
-			</form>
+            <hr size="8px" color="black" />
+            <h3>Acceso Al Sistema</h3>
+
+            <form method="post" action="menuppal.py" id="forma1">
+                <h3>Usuario --> <input type = "text" name = "usuario"><br>
+                Clave ----> <input type = "password" name = "clave"></h3>
+
+				<input type="hidden" name="inicio" value="inicio" id="inicio" >
+                <input type="submit" value="INGRESAR" />
+            </form>
+
 
 
 			<h4>TIRO Server (c) JAM 2023 : Hosted on Docker</h4>
