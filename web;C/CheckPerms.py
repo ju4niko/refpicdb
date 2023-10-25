@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 #comprobacion de permiso de acceso a sistema
 
-
+print('Content-Type:text/html;charset=utf-8\r\n')
+print('\r\n')
 import pymysql, uuid, cgitb, cgi, sys, os
 cgitb.enable()
 #cgitb.enable(logdir="../")

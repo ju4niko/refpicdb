@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-print('Content-Type:text/html;charset=utf-8\r\n')
-print('\r\n')
-
 exec(open('CONFIGURACION.ini').read())
 exec(open("CheckPerms.py").read())
 inicio = form.getvalue('inicio')
@@ -32,9 +29,9 @@ else:
 if acceder:
 	print ("<h3>MENU PRINCIPAL</h3>")
 
-	print ("<form method=\"post\" action=\"deposito.py\"  >")
+	print ("<form method=\"post\" action=\"tiro.py\"  >")
 	print (userpas)
-	print ("<input type=\"submit\" value=\"> Deposito <\" />")
+	print ("<input type=\"submit\" value=\"> Ver Mapa <\" />")
 	print ("</form>")
 
 
@@ -82,11 +79,9 @@ if acceder:
 				alert("Completar Motivo");return false;\
 				}\
 			}')
-	#print('if (x1 == "" || x1 == null) {alert("Completar Color");return false;}')
 	print('} ') #cierra la funcion <----------------------------
 
-	#print ('  function init() {     document.getElementById("neto").focus(); document.getElementById("neto").value = ""; document.getElementById("reimprimir").checked = false;} ')
-	#print ('window.onload = init; ')
+
 	print(' </script>')
 
 else:

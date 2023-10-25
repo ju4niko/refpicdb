@@ -2,17 +2,17 @@
 
 body {
     background-image: url("fondo.jpg");
-    background-color: #106010;
+    background-color: #056005;
     font-family:Andele Mono, monospace;
 	}
 h2,h3,h4 {
 		color: #11BB11;
-		background-color: #108010;
+		background-color: #050505;
 	}
 
 h1 {
 		color: #11BB11;
-		background-color: #11AA11;
+		background-color: #050505;
 	}
 
 .container {
