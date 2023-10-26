@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-exec(open('CONFIGURACION.ini').read())
 exec(open("CheckPerms.py").read())
 inicio = form.getvalue('inicio')
 test1 = form.getvalue('test1')

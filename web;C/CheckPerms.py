@@ -2,6 +2,11 @@
 # -*- coding: utf-8 -*-
 #comprobacion de permiso de acceso a sistema
 
+global dbb,form,usuario, clave, userpas, DB_NAME,DB_USER,DB_USER_PW,DB_HOST
+
+exec(open('CONFIGURACION.ini').read())
+
+
 print('Content-Type:text/html;charset=utf-8\r\n')
 print('\r\n')
 import pymysql, uuid, cgitb, cgi, sys, os
@@ -15,6 +20,20 @@ usuario = form.getvalue('usuario')
 clave = form.getvalue('clave')
 userpas = f'<input type="hidden" name="usuario" value="{usuario}" id="usuario" >  <input type="hidden" name="clave" value="{clave}" id="clave" >'
 
+
+print ("<html><head>")
+print (f'<title> {format(SYS_NAME)} </title>')
+print ("<link rel=\"stylesheet\" type=\"text/css\" href=\"style/style.css\" >")
+print ('<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">')
+
+
+print ('</head>')
+print ("<body>")
+print ("<center>")
+print (f"<h3>Sistema {format(SYS_NAME)} V{VERSION} Usuario: {usuario}</h3>")
+print ("<hr size=\"8px\" color=\"black\" >")
+
+##################################################
 def printd (s):
 	if DEBUG: print (f'<h4><pre>{s}</pre></h4>')
 
@@ -106,18 +125,3 @@ def ImprimeBajoMenu (VolverA):
 	print (userpas)
 	print ('<input type="submit" value=" <<< VOLVER" />')
 	print ("<hr></form>")
-
-
-
-
-print ("<html><head>")
-print (f'<title> {format(SYS_NAME)} </title>')
-print ("<link rel=\"stylesheet\" type=\"text/css\" href=\"style/style.css\" >")
-print ('<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">')
-
-
-print ('</head>')
-print ("<body>")
-print ("<center>")
-print (f"<h3>Sistema {format(SYS_NAME)} V{VERSION} Usuario: {usuario}</h3>")
-print ("<hr size=\"8px\" color=\"black\" >")
