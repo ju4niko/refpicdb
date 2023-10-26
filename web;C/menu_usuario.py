@@ -23,3 +23,4 @@ else:
 	print (GetOutOfHere)
 
 print  ("</h4></center></body></html>")
+dbb.close()

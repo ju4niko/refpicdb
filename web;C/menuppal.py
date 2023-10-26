@@ -9,8 +9,8 @@ acceder = False
 if str(inicio) == str("inicio"):
 	acceder = Acceso(usuario,clave)
 	if acceder:
-		dbb = pymysql.connect(db=DB_NAME,user=DB_USER,passwd=DB_USER_PW,host=DB_HOST)
-		cursor = dbb.cursor()
+		#dbb = pymysql.connect(db=DB_NAME,user=DB_USER,passwd=DB_USER_PW,host=DB_HOST)
+		#cursor = dbb.cursor()
 	#borro sesiones anteriores
 		q = f"delete from ses where ses_users_nom = \"{usuario}\""
 		cursor.execute(q)
@@ -28,42 +28,38 @@ else:
 
 if acceder:
 	print ("<h3>MENU PRINCIPAL</h3>")
-
-	print ("<form method=\"post\" action=\"tiro.py\"  >")
-	print (userpas)
-	print ("<input type=\"submit\" value=\"> Ver Mapa <\" />")
-	print ("</form>")
-
-
+	
 	print ('<form method="post" action="menu_usuario.py" >')
 	print (userpas)
 	print ('<input type="submit" value=">  Operac. Usuario  <" />')
 	print ('</form>')
-	if AccesoAdmin(usuario):
-		print ('<hr><h4><form name="myForm" onsubmit="return validateForm()" method="post" action="DespachoPedido.py"><pre>')
-		print (userpas)
-		print ('Pedido:<input type="text" name="npedido" id="npedido" value="" maxlenght="6" autocomplete="off" size="6" \
-			> Juntar con:<input type="text" name="pedidofusion" id="pedidofusion" value="" maxlenght="6" autocomplete="off" size="6" ><br>')
-		print ('Motivo:  <input type="text" name="motivofusion" value="" id="motivofusion" maxlenght="30" autocomplete="off" size="30" ><br>')
+	
+	print ('<hr> <form name="myForm"  method="post" action="menu_mapas.py"> ')
+	print (userpas)
+	#print ('Mapa:<input type="text" name="mapa" id="mapa" value="" maxlenght="20" autocomplete="off" size="20" ><br>')
+	print (' <input type="submit" value="> Mapas <" /><br>')
+	print ("</form> ")
+	
+	print ('<hr> <form name="myForm"  method="post" action="menu_eventos.py"> ')
+	print (userpas)
+	#print ('Mapa:<input type="text" name="mapa" id="mapa" value="" maxlenght="20" autocomplete="off" size="20" ><br>')
+	print (' <input type="submit" value="> Eventos <" /><br>')
+	print ("</form> ")
+	
 
-		print ('Cliente:        <input type="text" name="cliente" value="" maxlenght="20" autocomplete="off" size="20"><br>')
-		print ('</pre><input type="submit" value="> Despacho de Pedidos <" /><br>')
-		print ("</form></h4><hr>")
+#	if AccesoAdmin(usuario):
 
-		if AccesoSuAdmin(usuario):
-			print('<hr><h3>Baja de Stock</h3>')
-			print ("<form method=\"post\" action=\"bajaEtiqueta.py\">")
-			print (userpas)
-			print ("<input type=\"submit\" value=\"> Baja por Codigo <\" />")
-			print ("</form>")
+		
+		
+#		if AccesoSuAdmin(usuario):
 
 
-	print ('</h4><center><hr>')
-	print ('<form method="post" action="AyudaSys.py">')
+	print (' <center>')
+	print ('<hr><form method="post" action="AyudaSys.py">')
 	print (userpas)
 	print ('<input type="submit" value="Ver AYUDA" />')
 	print ("</form>")
-	print (f'<form method="post" action="cierra_ses.py">')
+	print (f'<hr><form method="post" action="cierra_ses.py">')
 	print (userpas)
 	print ('<input type="submit" value="SALIR DEL SISTEMA!!!" />')
 	print ("<hr></form>")
@@ -87,4 +83,5 @@ if acceder:
 else:
 	print (GetOutOfHere) #donde volver
 
-print  ("</h4></center></body></html>")
+print  (" </center></body></html>")
+dbb.close()

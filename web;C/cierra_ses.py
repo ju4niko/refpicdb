@@ -3,9 +3,6 @@
 exec(open('CONFIGURACION.ini').read())
 exec(open("CheckPerms.py").read())
 if AccesoSes(usuario,clave):
-
-	dbb = pymysql.connect(db=DB_NAME,user=DB_USER,passwd=DB_USER_PW,host=DB_HOST)
-	cursor = dbb.cursor()
 	q = f'delete from ses where ses_session =\'{clave}\''
 	cursor.execute(q)
 	dbb.commit()
@@ -23,3 +20,4 @@ else:
 	print ('<input type="submit" value="VOLVER" />')
 	print ("</form><br>")
 print  ("</h4></center></body></html>")
+dbb.close()

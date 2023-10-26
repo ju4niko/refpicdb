@@ -6,9 +6,6 @@ print('Content-Type:text/html;charset=utf-8\r\n')
 print('\r\n')
 import pymysql, uuid, cgitb, cgi, sys, os
 cgitb.enable()
-#cgitb.enable(logdir="../")
-#cgitb.enable(display=0, logdir='cgilog')
-
 
 dbb = pymysql.connect(db=DB_NAME,user=DB_USER,passwd=DB_USER_PW,host=DB_HOST)
 cursor = dbb.cursor()
@@ -36,8 +33,7 @@ def decrip(pw):
 	return chipher.decrypt(base64.b64decode(pw))
 
 def Acceso (usuario, clave):
-# verifica calve de usaurio
-#    exec(open('CONFIGURACION.ini').read()) #levanta configuracion general del sistema
+    # verifica calve de usaurio
     q = f"select users_pwd from users where users_nom = \'{usuario}\'"
     cursor.execute(q)
     r = cursor.fetchone()
@@ -51,21 +47,21 @@ def Acceso (usuario, clave):
 
 def AccesoSes (usuario, clave):
 #verifica sesion de usuaio y garantiza acceso
-	q = f"select ses_session from ses where ses_users_nom = \'{usuario}\'"
-	cursor.execute(q)
-	r = cursor.fetchone()
-	if r == None:
-		return False
-	else:
-#		print(f'<br>s:{clave}<br>c:{r[0]}<br>')
-		if str(clave) == str(r[0]):
-			return True
-		else:
-			return False
+    q = f"select ses_session from ses where ses_users_nom = \'{usuario}\'"
+    cursor.execute(q)
+    r = cursor.fetchone()
+    if r == None:
+        return False
+    else:
+
+        if str(clave) == str(r[0]):
+            return True
+        else:
+            return False
 
 
-def AccesoAdmin (usuario): #verifica permiso de administrador
-#    exec(open('CONFIGURACION.ini').read()) #levanta configuracion general del sistema
+def AccesoAdmin (usuario):
+    #verifica permiso de administrador
     q = f"select users_cat from users where users_nom = \'{usuario}\'"
     cursor.execute(q)
     r = cursor.fetchone()
@@ -77,8 +73,8 @@ def AccesoAdmin (usuario): #verifica permiso de administrador
         else:
             return False
 
-def AccesoSuAdmin (usuario): #verifica permiso de administrador
-#    exec(open('CONFIGURACION.ini').read()) #levanta configuracion general del sistema
+def AccesoSuAdmin (usuario):
+    #verifica permiso de administrador
     q = f"select users_cat from users where users_nom = \'{usuario}\'"
     cursor.execute(q)
     r = cursor.fetchone()
@@ -92,11 +88,13 @@ def AccesoSuAdmin (usuario): #verifica permiso de administrador
 
 
 def getProduID(p):
-	q = f'select produ_id from produ where produ_nom = "{p}"'
-	cursor.execute(q)
-	r = cursor.fetchone()
-	if not r: return 0
-	else: return int(r[0])
+    q = f'select produ_id from produ where produ_nom = "{p}"'
+    cursor.execute(q)
+    r = cursor.fetchone()
+    if not r:
+        return 0
+    else:
+        return int(r[0])
 
 def ImprimeBajoMenu (VolverA):
 	print ('</h4><center><hr>')
