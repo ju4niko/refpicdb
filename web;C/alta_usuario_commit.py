@@ -1,11 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-
-exec(open('CONFIGURACION.ini').read())
 exec(open("CheckPerms.py").read())
 
 def encrip(pw):
-	
 	return pw #desactivado por ahora
 	
 	# aca enrroscar la clave
@@ -28,9 +25,6 @@ userpas = f"<input type=\"hidden\" name=\"usuario\" value=\"{usuario}\" id=\"usu
 
 if AccesoSes(usuario,clave) and AccesoAdmin(usuario):  
 	if (pass1 == pass2) and (pass1 != None) and (username != None):
-		dbb = pymysql.connect(db=DB_NAME,user=DB_USER,passwd=DB_USER_PW,host=DB_HOST)
-		cursor = dbb.cursor()
-
 		q = f'insert into users (users_nom, users_pwd, users_cat) values ("{username}","{encrip(pass1)}","{usercat}")'
 		#print(q)
 		cursor.execute(q)
@@ -59,3 +53,4 @@ else:
 	print ("</form><br></h4></center>")	
 	
 print  ("</body></html>")
+dbb.close()

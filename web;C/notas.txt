@@ -1,0 +1,16 @@
++-------------------+
+| Tables_in_tiro_db |
++-------------------+
+| ammo              | -> municiones para weapons
+| codigos           | -> codigos de eventos para eventlog
+| eventlog          | -> log de actividad general, login de usuarios, acciones sobre eventos y mapas, etc
+| eventos           | -> evento de juego
+| events_maps       | -> tabla auxiliar que vincula los mapas (m_id) con eventos (valor)
+| mapas             | -> identificador de mapas para eventos, luego se asocian objetos (o_mapid) 
+| objetos           | -> objetos pertenecientes a un determinado mapa
+| ses               | -> sesiones de usuarios
+| tipos             | -> tipos de objetos (cuadrado, redondel, linea, flecha, etc)
+| users             | -> usuarios del sistema
+| weapon_ammo       | -> tabla que relaciona ammo, con weapon_types
+| weapon_types      | -> tipos de morteros/cañones/lanzaderas
++-------------------+
