@@ -14,3 +14,20 @@
 | weapon_ammo       | -> tabla que relaciona ammo, con weapon_types
 | weapon_types      | -> tipos de morteros/cañones/lanzaderas
 +-------------------+
+
+bkp y restore de la base de datos:
+
+BACKUP:
+docker exec -it nombre_del_contenedor_mariadb /bin/bash
+
+mariadb-dump -u admin_tiro -p tiro_db > /ruta/para/el/archivo.sql
+
+docker cp nombre_del_contenedor_mariadb:/ruta/para/el/archivo.sql archivo.sql
+
+
+RESTORE:
+docker cp archivo.sql nombre_del_contenedor_mariadb:/ruta/en/el/contenedor/archivo.sql
+
+docker exec -it nombre_del_contenedor_mariadb /bin/bash
+
+mysql -u admin_tiro -p tiro_db < /ruta/en/el/contenedor/archivo.sql

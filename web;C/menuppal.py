@@ -83,4 +83,5 @@ else:
 	print (GetOutOfHere) #donde volver
 
 print  (" </center></body></html>")
+cursor.close()
 dbb.close()
