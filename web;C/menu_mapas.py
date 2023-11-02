@@ -24,7 +24,7 @@ if AccesoSes(usuario,clave):
 
 		
 		if AccesoSuAdmin(usuario):
-			print ('<hr> <form method="post" action="create_map.py"> ')
+			print ('<hr> <form method="post" action="create_mapa_commit.py"> ')
 			print (userpas)
 			print ('Mapa:<input type="text" name="mapa" id="mapa" value="" maxlenght="20" autocomplete="off" size="20" ><br>')
 			print (' <input type="submit" value="> Nuevo Mapa <" /><br>')

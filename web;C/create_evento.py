@@ -15,8 +15,6 @@ if AccesoSuAdmin(usuario):
 	print(f'    <input type="submit" value="CREAR!">')
 	print(f'    <input type="hidden" id="evento" name="evento" value="{evento}">')
 	print (userpas)
-
-	
 	print('</div>')  # Cierra el contenedor.
 	print("</form>")
 

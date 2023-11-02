@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-
-exec(open('CONFIGURACION.ini').read())
 exec(open("CheckPerms.py").read())
 if AccesoSes(usuario,clave):
 	print ("<h3>Operaciones de Usuarios</h3>")
