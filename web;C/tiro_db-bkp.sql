@@ -48,6 +48,35 @@ INSERT INTO `ammo` VALUES
 UNLOCK TABLES;
 
 --
+-- Table structure for table `bandos`
+--
+
+DROP TABLE IF EXISTS `bandos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bandos` (
+  `b_id` int(11) NOT NULL AUTO_INCREMENT,
+  `b_name` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`b_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bandos`
+--
+
+LOCK TABLES `bandos` WRITE;
+/*!40000 ALTER TABLE `bandos` DISABLE KEYS */;
+INSERT INTO `bandos` VALUES
+(1,'Rusia'),
+(2,'Ucrania'),
+(3,'Rebeldes'),
+(4,'USA'),
+(5,'Wagner');
+/*!40000 ALTER TABLE `bandos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `codigos`
 --
 
@@ -169,8 +198,10 @@ CREATE TABLE `mapas` (
   `m_nom` varchar(40) DEFAULT NULL,
   `m_time` timestamp NULL DEFAULT current_timestamp(),
   `m_eid` int(11) DEFAULT NULL,
+  `m_lat` float DEFAULT NULL,
+  `m_lon` float DEFAULT NULL,
   PRIMARY KEY (`m_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +211,8 @@ CREATE TABLE `mapas` (
 LOCK TABLES `mapas` WRITE;
 /*!40000 ALTER TABLE `mapas` DISABLE KEYS */;
 INSERT INTO `mapas` VALUES
-(4,'Tablero General','2023-10-28 20:52:26',2);
+(4,'Tablero General','2023-10-28 20:52:26',2,-34.757,-58.5114),
+(5,'Test1','2023-11-02 21:05:45',NULL,-34.757,-58.5114);
 /*!40000 ALTER TABLE `mapas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,10 +228,10 @@ CREATE TABLE `objetos` (
   `t_id` int(11) DEFAULT NULL,
   `o_lat` float DEFAULT NULL,
   `o_lng` float DEFAULT NULL,
-  `o_owner` int(11) DEFAULT NULL,
-  `o_mapid` int(11) DEFAULT NULL,
+  `b_id` int(11) DEFAULT NULL,
+  `m_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`o_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,6 +240,12 @@ CREATE TABLE `objetos` (
 
 LOCK TABLES `objetos` WRITE;
 /*!40000 ALTER TABLE `objetos` DISABLE KEYS */;
+INSERT INTO `objetos` VALUES
+(1,2,-34.7568,-58.506,2,4),
+(2,1,-34.7636,-58.5095,1,4),
+(3,3,-34.7559,-58.5064,2,4),
+(4,1,-34.7554,-58.5064,2,4),
+(5,4,-34.7603,-58.5134,1,4);
 /*!40000 ALTER TABLE `objetos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,7 +269,7 @@ CREATE TABLE `ses` (
 LOCK TABLES `ses` WRITE;
 /*!40000 ALTER TABLE `ses` DISABLE KEYS */;
 INSERT INTO `ses` VALUES
-('8ff26725-81f2-4422-ac68-a8044711ed24','admin');
+('012ef59e-3b85-43c2-928e-d286e81c7829','admin');
 /*!40000 ALTER TABLE `ses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -245,11 +283,10 @@ DROP TABLE IF EXISTS `tipos`;
 CREATE TABLE `tipos` (
   `t_id` int(11) NOT NULL AUTO_INCREMENT,
   `t_name` varchar(20) DEFAULT NULL,
-  `t_color` varchar(6) DEFAULT NULL,
   `t_grosor` int(11) DEFAULT NULL,
   `t_size` int(11) DEFAULT NULL,
   PRIMARY KEY (`t_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,8 +296,11 @@ CREATE TABLE `tipos` (
 LOCK TABLES `tipos` WRITE;
 /*!40000 ALTER TABLE `tipos` DISABLE KEYS */;
 INSERT INTO `tipos` VALUES
-(1,'HQ_Rojo','FF0000',5,10),
-(2,'HQ_Azul','0000FF',5,10);
+(1,'HQ',5,5),
+(2,'Deposito S',5,5),
+(3,'Comms S',3,5),
+(4,'Comms L',5,5),
+(5,'Deposito L',5,10);
 /*!40000 ALTER TABLE `tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,4 +449,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-02 19:39:03
+-- Dump completed on 2023-11-04  1:56:25
