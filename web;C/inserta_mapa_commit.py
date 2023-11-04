@@ -25,7 +25,7 @@ if AccesoSes(usuario,clave):
     print ("<center>OBJETO CREADO CORRECTAMENTE")
     print ('<form method="post" >')
     print (userpas)
-    print ('<button type="submit"  formaction="edit_map.py"> CREAR NUEVO</button>')
+    #print ('<button type="submit"  formaction="edit_map.py"> CREAR NUEVO</button>')
     print ('<button type="submit"  formaction="menu_mapas.py"> VOLVER </button>')
     print ("</form></center>")
 

@@ -180,13 +180,13 @@ if AccesoSes(usuario,clave):
         print(f'MAPA INEXISTNTE!')
     else:
 
-        print("<button onclick=\"goBack()\">Retroceder</button>")
+        #print("<button onclick=\"goBack()\">Retroceder</button>")
         print('    <div id="map" style="height: 800px; width: 100%;"></div>')
         print(f'    <script src="https://maps.googleapis.com/maps/api/js?key={API_KEY}"></script>')
         print("    <script>")
-        print("function goBack() {")
-        print("    window.history.back();")
-        print("}")
+       # print("function goBack() {")
+       # print("    window.history.back();")
+       # print("}")
         print("      function initMap() {")
         print(f'        var map = new google.maps.Map(document.getElementById("map"), {{')
         print("          zoom: 18,")

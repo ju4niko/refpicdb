@@ -18,6 +18,8 @@ if AccesoSes(usuario,clave):
 	print('  </datalist></h4>')
 	print (' <button type="submit" formaction="ver_map.py" > Ver  </button>')
 	print (' <button type="submit" formaction="edit_map.py" > Editar  </button>')
+	print (' <button type="submit" formaction="disparo.py" > DISPARO!  </button>')
+	
 
 	if AccesoAdmin(usuario):
 		print (' <button type="submit" formaction="create_mapa.py" > Crear  </button>')
@@ -25,7 +27,7 @@ if AccesoSes(usuario,clave):
 			print (' <button type="submit" formaction="delete_mapa.py" > Borrar  </button>')
 	print ("</form> ")
 
-	
+
 	print ('<form method="post" action="menuppal.py">') # <--- opner aqui donde volver
 	print (userpas)
 	print ('<input type="submit" value=" <<< VOLVER" >')
