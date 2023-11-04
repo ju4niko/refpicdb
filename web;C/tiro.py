@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import cgitb, cgi, datetime, sys, re
+import datetime, sys, re, random, math
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
@@ -8,10 +8,6 @@ from reportlab.platypus import BaseDocTemplate, SimpleDocTemplate, Paragraph, Ta
 from html import escape
 from reportlab.lib.units import inch
 from reportlab.lib.units import cm
-
-
-import random
-import math
 
 BOMBAZO="#FF0000"
 BOMBAZO_FILL="#8F0000"
@@ -82,7 +78,7 @@ class GoogleMapsHelper:
         }
         self.objects.append(linea)
 
-    def add_square(self, lat, lng, size, stroke_color=POI_A, fill_color=POI_B, stroke_opacity=0.8, fill_opacity=0.35):
+    def add_square(self, lat, lng, size, stroke_color=POI_A, fill_color=POI_A_FILL, stroke_opacity=0.8, fill_opacity=0.35):
 
 
         square = {
