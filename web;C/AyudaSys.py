@@ -14,6 +14,11 @@ if AccesoSes(usuario,clave):
 	print (' 	- El SuperAdmin puede hacer todo incluido administrar usuarios <br>')
 	print (' 	- y otras funcinoes especiales <br>')
 	print (' 	- ..... en construccion.... <br>')
+	print ('    - AYUDA DE TABLAS DE TRAYECTORIA DE MUNICION<br>')
+	print ('<form method="post" action="tablas_trayectoria.py">')
+	print (userpas)
+	print ('    <input type="submit" value="VER" /></form>')
+	
 	print (' 	-  <br>')
 
 	print ('<br>')

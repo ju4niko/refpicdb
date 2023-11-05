@@ -36,8 +36,8 @@ def dibujar_intervalo_trayectorias(Vi, angulo_inicial_miliradianes, incremento_m
     if max_x < 400: interv = 20
     if max_x < 200: interv = 10
 
-    xticks = np.arange(0, max_x, interv )
-    ax.set_xticks(xticks)
+    #xticks = np.arange(0, max_x, interv )
+    #ax.set_xticks(xticks)
     # Marcar el valor máximo en el eje X con una etiqueta
     ax.axvline(max_x, color='b', linestyle='--')  # Línea vertical
     ax.axvline(min_x, color='r', linestyle='--')  # Línea vertical
