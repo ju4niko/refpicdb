@@ -39,11 +39,11 @@ CREATE TABLE `ammo` (
 LOCK TABLES `ammo` WRITE;
 /*!40000 ALTER TABLE `ammo` DISABLE KEYS */;
 INSERT INTO `ammo` VALUES
-(1,1,65,15,'M888/0'),
-(2,1,126,15,'M888/1'),
-(3,1,170,15,'M888/2'),
-(4,1,208,15,'M888/3'),
-(5,1,241,15,'M888/4');
+(1,1,65,7,'M888-0'),
+(2,1,126,7,'M888-1'),
+(3,1,170,7,'M888-2'),
+(4,1,208,7,'M888-3'),
+(5,1,241,7,'M888-4');
 /*!40000 ALTER TABLE `ammo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,6 +98,43 @@ CREATE TABLE `codigos` (
 LOCK TABLES `codigos` WRITE;
 /*!40000 ALTER TABLE `codigos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `codigos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `disparo`
+--
+
+DROP TABLE IF EXISTS `disparo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `disparo` (
+  `d_id` int(11) NOT NULL AUTO_INCREMENT,
+  `d_lato` float DEFAULT NULL,
+  `d_lono` float DEFAULT NULL,
+  `d_latd` float DEFAULT NULL,
+  `d_lond` float DEFAULT NULL,
+  `d_time` timestamp NULL DEFAULT current_timestamp(),
+  `m_id` int(11) DEFAULT NULL,
+  `b_id` int(11) DEFAULT NULL,
+  `w_id` int(11) DEFAULT NULL,
+  `a_id` int(11) DEFAULT NULL,
+  `d_dist` int(11) DEFAULT NULL,
+  PRIMARY KEY (`d_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `disparo`
+--
+
+LOCK TABLES `disparo` WRITE;
+/*!40000 ALTER TABLE `disparo` DISABLE KEYS */;
+INSERT INTO `disparo` VALUES
+(3,-34.7565,-58.5078,-34.7579,-58.5118,'2023-11-05 20:43:19',4,2,1,1,391),
+(4,-34.7565,-58.5078,-34.7587,-58.5117,'2023-11-05 23:21:09',4,2,1,1,427),
+(5,-34.7565,-58.5078,-34.7595,-58.5125,'2023-11-05 23:31:20',4,2,1,2,542),
+(6,-34.7565,-58.5078,-34.7605,-58.5137,'2023-11-05 23:32:39',4,2,1,2,691);
+/*!40000 ALTER TABLE `disparo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -231,7 +268,7 @@ CREATE TABLE `objetos` (
   `b_id` int(11) DEFAULT NULL,
   `m_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`o_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,7 +282,8 @@ INSERT INTO `objetos` VALUES
 (2,1,-34.7636,-58.5095,1,4),
 (3,3,-34.7559,-58.5064,2,4),
 (4,1,-34.7554,-58.5064,2,4),
-(5,4,-34.7603,-58.5134,1,4);
+(5,4,-34.7603,-58.5134,1,4),
+(6,1,-34.7603,-58.5137,1,4);
 /*!40000 ALTER TABLE `objetos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +307,7 @@ CREATE TABLE `ses` (
 LOCK TABLES `ses` WRITE;
 /*!40000 ALTER TABLE `ses` DISABLE KEYS */;
 INSERT INTO `ses` VALUES
-('012ef59e-3b85-43c2-928e-d286e81c7829','admin');
+('a620e924-ec5e-441e-b73a-ddab109b1d5c','admin');
 /*!40000 ALTER TABLE `ses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,4 +487,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-04  1:56:25
+-- Dump completed on 2023-11-06  0:27:31

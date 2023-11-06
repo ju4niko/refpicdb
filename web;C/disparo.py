@@ -19,7 +19,7 @@ if AccesoSes(usuario,clave):
         print(f'MAPA INEXISTNTE!')
     else:        
 
-        print('<form method="post" action="disapro_commit.py">')
+        print('<form method="post" action="disparo_commit.py">')
         print(f'<h4>MAPA:{mapa}</h4>')
 
         print('<table>')
@@ -67,16 +67,16 @@ if AccesoSes(usuario,clave):
         print('<td style="padding: 5px;">Elevacion (mils):</td>')
         print('<td style="padding: 5px;"><input \
             type="text" \
-            name="latlon" \
-            id="latlon" \
+            name="elevacion" \
+            id="elevacion" \
             value="" \
-            maxlength="20" \
+            maxlength="4" \
             autocomplete="off" \
             size="25"\
             title="angulo de elevacion en miliradianes"\
             ></td>')
         print('</tr>')
- 
+
         print('<tr>')
         print('<td style="padding: 5px;">Azimut (mils):</td>')
         print('<td style="padding: 5px;"><input \
@@ -84,7 +84,7 @@ if AccesoSes(usuario,clave):
             name="azimut" \
             id="azimut" \
             value="" \
-            maxlength="40" \
+            maxlength="4" \
             autocomplete="off" \
             size="25"\
             title="angulo de azimut en miliradianes"\
@@ -95,7 +95,7 @@ if AccesoSes(usuario,clave):
 
         
         print('<input type="submit" value="FUEGO!">')
-        print(f'<input type="hidden" id="map_id" name="map_id" value="{map_id}">')
+        print(f'<input type="hidden" id="mapas" name="mapas" value="{mapas}">')
         print(userpas)
         print('</form>')
 

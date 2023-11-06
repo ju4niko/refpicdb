@@ -163,9 +163,13 @@ class GoogleMapsHelper:
 exec(open("CheckPerms.py").read())
 
 if AccesoSes(usuario,clave):
+    limite_disp = form.getvalue('limite_disp')
+    verDisp = form.getvalue('verDisp')
     mapas = form.getvalue('mapas')
     mapa = mapas.split(":")[0]
     map_id = mapas.split(":")[1]
+
+
     print (f'<h3> MAPA: {mapa}</h3>')
 
     q = f'select * from mapas where m_nom = "{mapa}"'
@@ -223,6 +227,17 @@ if AccesoSes(usuario,clave):
             if t_id in [1,2,5] : gmaps.add_square(la,lo,t_size,BCOLOR,BCOLOR)
             if t_id in [3,4]: gmaps.add_circle(la,lo,t_size,BCOLOR,BCOLOR)
             gmaps.add_text_label(la,lo,f'{t_name} {bando_nom}')
+        if verDisp == "1":
+            #ahora me fijo si hay disparos para mostrar
+            t = cursor.execute(f'select distinct disparo.*, ammo.a_ratio from disparo join ammo on disparo.w_id = ammo.a_weapon where disparo.m_id = {m_id} order by disparo.d_time desc limit {limite_disp}')
+            r = cursor.fetchall()
+            if r == None:
+                print()
+            else:
+                for i in range(t):
+                    gmaps.add_text_label( (r[i][1]+r[i][3])/2 ,(r[i][2]+r[i][4])/2, f'{r[i][10]}m' )
+                    gmaps.add_flecha(r[i][1],r[i][2],r[i][3],r[i][4])
+                    gmaps.add_circle(r[i][3],r[i][4],r[i][11])    
 
         print(gmaps.generate_js_code())
         print("      }")
