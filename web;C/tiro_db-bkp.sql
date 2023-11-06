@@ -29,7 +29,7 @@ CREATE TABLE `ammo` (
   `a_ratio` int(11) DEFAULT NULL,
   `a_name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`a_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,11 +39,13 @@ CREATE TABLE `ammo` (
 LOCK TABLES `ammo` WRITE;
 /*!40000 ALTER TABLE `ammo` DISABLE KEYS */;
 INSERT INTO `ammo` VALUES
-(1,1,65,7,'M888-0'),
-(2,1,126,7,'M888-1'),
-(3,1,170,7,'M888-2'),
-(4,1,208,7,'M888-3'),
-(5,1,241,7,'M888-4');
+(1,1,65,7,'65.m/s'),
+(2,6,68,12,'68.m/s'),
+(3,1,126,7,'126.m/s'),
+(4,1,170,7,'170.m/s'),
+(5,6,204,12,'204.m/s'),
+(6,1,208,7,'208.m/s'),
+(7,6,120,12,'120.m/s');
 /*!40000 ALTER TABLE `ammo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +122,7 @@ CREATE TABLE `disparo` (
   `a_id` int(11) DEFAULT NULL,
   `d_dist` int(11) DEFAULT NULL,
   PRIMARY KEY (`d_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +135,10 @@ INSERT INTO `disparo` VALUES
 (3,-34.7565,-58.5078,-34.7579,-58.5118,'2023-11-05 20:43:19',4,2,1,1,391),
 (4,-34.7565,-58.5078,-34.7587,-58.5117,'2023-11-05 23:21:09',4,2,1,1,427),
 (5,-34.7565,-58.5078,-34.7595,-58.5125,'2023-11-05 23:31:20',4,2,1,2,542),
-(6,-34.7565,-58.5078,-34.7605,-58.5137,'2023-11-05 23:32:39',4,2,1,2,691);
+(6,-34.7565,-58.5078,-34.7605,-58.5137,'2023-11-05 23:32:39',4,2,1,2,691),
+(7,-34.7603,-58.5032,-34.7526,-58.4972,'2023-11-06 20:03:28',4,1,6,5,1014),
+(8,-34.7603,-58.5032,-34.7542,-58.5066,'2023-11-06 20:05:37',4,1,6,5,741),
+(9,-34.7603,-58.5032,-34.7559,-58.5063,'2023-11-06 20:13:22',4,1,6,7,560);
 /*!40000 ALTER TABLE `disparo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,7 +312,7 @@ CREATE TABLE `ses` (
 LOCK TABLES `ses` WRITE;
 /*!40000 ALTER TABLE `ses` DISABLE KEYS */;
 INSERT INTO `ses` VALUES
-('a620e924-ec5e-441e-b73a-ddab109b1d5c','admin');
+('711694b8-11ed-47ce-bc4d-5871540ff0a6','Kender');
 /*!40000 ALTER TABLE `ses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,7 +360,7 @@ CREATE TABLE `users` (
   `users_cat` varchar(1) DEFAULT NULL,
   `users_pwd` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`users_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,7 +370,8 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES
-(1,'admin','S','root_4CD4');
+(1,'admin','S','root_4CD4'),
+(3,'kender','A','Astudillo');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -487,4 +493,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-06  0:27:31
+-- Dump completed on 2023-11-06 21:31:08
