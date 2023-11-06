@@ -43,7 +43,7 @@ if AccesoSes(usuario,clave):
         print('<tr>')
         print('<td style="padding: 5px;">Municion:</td>')
         print('<td style="padding: 5px;"><input list="ammo" name="ammo"><datalist id="ammo">')
-        cursor.execute('select a_name, a_id, a_vi from ammo')
+        cursor.execute('select a_name, a_id, a_vi from ammo order by a_vi asc')
         for a_name,a_id,a_vi in cursor.fetchall():
             print(f'<option value="{a_name}:{a_id}">')
         print('</datalist></td>')

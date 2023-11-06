@@ -41,8 +41,12 @@ if AccesoSes(usuario,clave):
 	print(f' <td> <label for="verDisp"> Disparos </label>')
 	print(f' <input type="checkbox" id="verDisp" name="verDisp" value="1">')
 
-	print(f'Cant:<input type="text" name="limite_disp" id="limite_disp" value=""> </td>')
-	
+	print(f'Cant:<input type="text" name="limite_disp" id="limite_disp" value=""><br> ')
+	print('Bando:')
+	print('<input list="bando" name="bando"><datalist id="bando">')
+	cursor.execute('select b_name, b_id from bandos order by b_name asc')
+	for b_name, b_id in cursor.fetchall(): print(f'<option value="{b_name}:{b_id}">')
+	print('</datalist></td>')
 	print ('<tr><td> <button type="submit" formaction="edit_map.py" > Editar  </button> </td> <td></td> </tr>')
 	print ('<tr><td> <button type="submit" formaction="disparo.py" > DISPARO!  </button></td> <td></td> </tr>')
 

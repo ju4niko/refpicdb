@@ -168,6 +168,13 @@ if AccesoSes(usuario,clave):
     mapas = form.getvalue('mapas')
     mapa = mapas.split(":")[0]
     map_id = mapas.split(":")[1]
+    b = form.getvalue("bando")
+
+    if b !=None:
+        bando = b.split(":")[0]
+        b_id = b.split(":")[1]
+    else:
+        b_id = None
 
 
     print (f'<h3> MAPA: {mapa}</h3>')
@@ -227,9 +234,15 @@ if AccesoSes(usuario,clave):
             if t_id in [1,2,5] : gmaps.add_square(la,lo,t_size,BCOLOR,BCOLOR)
             if t_id in [3,4]: gmaps.add_circle(la,lo,t_size,BCOLOR,BCOLOR)
             gmaps.add_text_label(la,lo,f'{t_name} {bando_nom}')
+
+        filtrobando =''
+        filtrolimite = ''
+        if b_id != None: filtrobando = f' and disparo.b_id = {b_id} '
+        if limite_disp != None: filtrolimite = f' limit {limite_disp} '
+
         if verDisp == "1":
             #ahora me fijo si hay disparos para mostrar
-            t = cursor.execute(f'select distinct disparo.*, ammo.a_ratio from disparo join ammo on disparo.w_id = ammo.a_weapon where disparo.m_id = {m_id} order by disparo.d_time desc limit {limite_disp}')
+            t = cursor.execute(f'select distinct disparo.*, ammo.a_ratio from disparo join ammo on disparo.w_id = ammo.a_weapon where disparo.m_id = {m_id} {filtrobando} order by disparo.d_time desc {filtrolimite}')
             r = cursor.fetchall()
             if r == None:
                 print()
