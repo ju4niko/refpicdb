@@ -52,7 +52,19 @@ def decrip(pw):
 	chipher = AES.new(seckey,AES.MODE_ECB)
 	return chipher.decrypt(base64.b64decode(pw))
 
+def Habilitado (usuario):
+    # verifica que el usuario este habilitado
+    q = f'select users_enable from users where users_nom = "{usuario}"'
+    cursor.execute(q)
+    r = cursor.fetchone()
+    if r == None: return False
+    else: 
+        if r[0] == 1: return True
+        else: return False
+
 def Acceso (usuario, clave):
+
+    if not Habilitado(usuario): return False
     # verifica calve de usaurio
     q = f"select users_pwd from users where users_nom = \'{usuario}\'"
     cursor.execute(q)
@@ -66,7 +78,9 @@ def Acceso (usuario, clave):
             return False
 
 def AccesoSes (usuario, clave):
-#verifica sesion de usuaio y garantiza acceso
+    if not Habilitado(usuario): return False
+
+    #verifica sesion de usuaio y garantiza acceso
     q = f"select ses_session from ses where ses_users_nom = \'{usuario}\'"
     cursor.execute(q)
     r = cursor.fetchone()
@@ -81,6 +95,8 @@ def AccesoSes (usuario, clave):
 
 
 def AccesoAdmin (usuario):
+    if not Habilitado(usuario): return False
+
     #verifica permiso de administrador
     q = f"select users_cat from users where users_nom = \'{usuario}\'"
     cursor.execute(q)
@@ -94,6 +110,8 @@ def AccesoAdmin (usuario):
             return False
 
 def AccesoSuAdmin (usuario):
+    if not Habilitado(usuario): return False
+
     #verifica permiso de administrador
     q = f"select users_cat from users where users_nom = \'{usuario}\'"
     cursor.execute(q)
@@ -107,8 +125,8 @@ def AccesoSuAdmin (usuario):
             return False
 
 
-def getProduID(p):
-    q = f'select produ_id from produ where produ_nom = "{p}"'
+def getIDfromTable(campo_id,tabla,campo_nombre,valor):
+    q = f'select {campo_id} from {tabla} where {campo_nombre} = "{valor}"'
     cursor.execute(q)
     r = cursor.fetchone()
     if not r:

@@ -53,4 +53,5 @@ else:
 	print ("</form><br></h4></center>")	
 	
 print  ("</body></html>")
-dbb.close()
+cursor.close()
+dbb.close()  

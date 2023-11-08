@@ -10,7 +10,7 @@
 | objetos           | -> objetos pertenecientes a un determinado mapa
 | ses               | -> sesiones de usuarios
 | tipos             | -> tipos de objetos (cuadrado, redondel, linea, flecha, etc)
-| users             | -> usuarios del sistema
+| users             | -> usuarios del sistema y jugadores, tienen fecha de vencimiento
 | weapon_ammo       | -> tabla que relaciona ammo, con weapon_types
 | weapon_types      | -> tipos de morteros/cañones/lanzaderas
 +-------------------+
@@ -18,11 +18,12 @@
 bkp y restore de la base de datos desde un host corriendo contenedores
 
 BACKUP:
-docker exec -it nombre_del_contenedor_mariadb /bin/bash
+- entrar al contenedor con la DB y hacer eel BACKUP
+# docker exec -it tiro-db-1 /bin/bash
+# mariadb-dump -u admin_tiro -p tiro_db > /archivo.sql
 
-mariadb-dump -u admin_tiro -p tiro_db > /ruta/para/el/archivo.sql
-
-docker cp nombre_del_contenedor_mariadb:/ruta/para/el/archivo.sql archivo.sql
+salir al S.O. y copiar el archivo desde el contenedor a la carpeta donde debe guardarse (repo git por ej.)
+# docker cp tiro-db-1:/archivo.sql archivo.sql
 
 
 RESTORE:
@@ -35,3 +36,8 @@ si el sql viene de un github ya queda en posicion, saltar al punto 3
 3) mysql -u admin_tiro -p -h 172.18.0.2 tiro_db < tiro_db-bkp.sql
 
 (poner la IP del contenedor donde corre la mariaDB, en este ejemplo es 172.18.0.2)
+
+TO DO LIST:
+
+- agregar housekeeping task que borre disparos viejos y usuarios con fecha de eliminacion
+- modificar checkperms.py para verificar usuarios habilitados o no, y vencidos de fecha

@@ -35,3 +35,5 @@ else:
 	print ('<input type="submit" value="VOLVER" />')
 	print ("</form><br>")	
 print  ("</h4></center></body></html>")
+cursor.close()
+dbb.close()    
