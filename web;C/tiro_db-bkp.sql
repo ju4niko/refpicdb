@@ -28,6 +28,7 @@ CREATE TABLE `ammo` (
   `a_vi` int(11) DEFAULT NULL,
   `a_ratio` int(11) DEFAULT NULL,
   `a_name` varchar(20) DEFAULT NULL,
+  `a_mil` int(11) DEFAULT NULL,
   PRIMARY KEY (`a_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,13 +40,13 @@ CREATE TABLE `ammo` (
 LOCK TABLES `ammo` WRITE;
 /*!40000 ALTER TABLE `ammo` DISABLE KEYS */;
 INSERT INTO `ammo` VALUES
-(1,1,65,7,'65.m/s'),
-(2,6,68,12,'68.m/s'),
-(3,1,126,7,'126.m/s'),
-(4,1,170,7,'170.m/s'),
-(5,6,204,12,'204.m/s'),
-(6,1,208,7,'208.m/s'),
-(7,6,120,12,'120.m/s');
+(1,1,65,7,'65.m/s',6400),
+(2,6,68,12,'68.m/s',6000),
+(3,1,126,7,'126.m/s',6400),
+(4,1,170,7,'170.m/s',6400),
+(5,6,204,12,'204.m/s',6000),
+(6,1,208,7,'208.m/s',6400),
+(7,6,120,12,'120.m/s',6000);
 /*!40000 ALTER TABLE `ammo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +123,7 @@ CREATE TABLE `disparo` (
   `a_id` int(11) DEFAULT NULL,
   `d_dist` int(11) DEFAULT NULL,
   PRIMARY KEY (`d_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,9 +137,20 @@ INSERT INTO `disparo` VALUES
 (4,-34.7565,-58.5078,-34.7587,-58.5117,'2023-11-05 23:21:09',4,2,1,1,427),
 (5,-34.7565,-58.5078,-34.7595,-58.5125,'2023-11-05 23:31:20',4,2,1,2,542),
 (6,-34.7565,-58.5078,-34.7605,-58.5137,'2023-11-05 23:32:39',4,2,1,2,691),
-(7,-34.7603,-58.5032,-34.7526,-58.4972,'2023-11-06 20:03:28',4,1,6,5,1014),
 (8,-34.7603,-58.5032,-34.7542,-58.5066,'2023-11-06 20:05:37',4,1,6,5,741),
-(9,-34.7603,-58.5032,-34.7559,-58.5063,'2023-11-06 20:13:22',4,1,6,7,560);
+(9,-34.7603,-58.5032,-34.7559,-58.5063,'2023-11-06 20:13:22',4,1,6,7,560),
+(10,-34.7568,-58.5113,-34.7551,-58.5081,'2023-11-07 12:33:19',4,1,6,7,351),
+(11,-34.7568,-58.5113,-34.755,-58.5034,'2023-11-07 13:32:30',4,1,6,7,756),
+(12,-34.7568,-58.5113,-34.7554,-58.5047,'2023-11-07 13:34:25',4,1,6,7,627),
+(13,-34.7568,-58.5113,-34.7552,-58.5057,'2023-11-07 13:35:36',4,1,6,7,546),
+(14,-34.7568,-58.5113,-34.7556,-58.5059,'2023-11-07 16:14:46',4,1,6,7,519),
+(15,-34.7587,-58.5051,-34.7587,-58.5119,'2023-11-07 23:39:34',5,2,1,3,619),
+(16,-34.7587,-58.5051,-34.7587,-58.5106,'2023-11-07 23:40:33',5,2,1,3,500),
+(17,-34.7587,-58.5051,-34.7586,-58.5057,'2023-11-08 00:06:51',5,2,1,2,59),
+(18,-34.7587,-58.5051,-34.7587,-58.5106,'2023-11-08 00:08:37',5,2,1,3,500),
+(19,-34.7587,-58.5051,-34.7587,-58.5103,'2023-11-08 00:12:42',5,2,1,3,469),
+(20,-34.7587,-58.5051,-34.7587,-58.5102,'2023-11-08 00:13:41',5,2,1,3,460),
+(21,-34.7587,-58.5051,-34.7587,-58.5101,'2023-11-08 00:14:52',5,2,1,3,451);
 /*!40000 ALTER TABLE `disparo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +285,7 @@ CREATE TABLE `objetos` (
   `b_id` int(11) DEFAULT NULL,
   `m_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`o_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +300,8 @@ INSERT INTO `objetos` VALUES
 (3,3,-34.7559,-58.5064,2,4),
 (4,1,-34.7554,-58.5064,2,4),
 (5,4,-34.7603,-58.5134,1,4),
-(6,1,-34.7603,-58.5137,1,4);
+(6,1,-34.7603,-58.5137,1,4),
+(7,1,-34.7587,-58.5101,1,5);
 /*!40000 ALTER TABLE `objetos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +325,8 @@ CREATE TABLE `ses` (
 LOCK TABLES `ses` WRITE;
 /*!40000 ALTER TABLE `ses` DISABLE KEYS */;
 INSERT INTO `ses` VALUES
-('711694b8-11ed-47ce-bc4d-5871540ff0a6','Kender');
+('711694b8-11ed-47ce-bc4d-5871540ff0a6','Kender'),
+('1749dad0-37bd-4564-b12e-e4242a77e9b3','admin');
 /*!40000 ALTER TABLE `ses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,7 +343,7 @@ CREATE TABLE `tipos` (
   `t_grosor` int(11) DEFAULT NULL,
   `t_size` int(11) DEFAULT NULL,
   PRIMARY KEY (`t_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -343,7 +357,11 @@ INSERT INTO `tipos` VALUES
 (2,'Deposito S',5,5),
 (3,'Comms S',3,5),
 (4,'Comms L',5,5),
-(5,'Deposito L',5,10);
+(5,'Deposito L',5,10),
+(6,'Op.',5,1),
+(7,'Squad.S',5,2),
+(8,'Squad.M',5,3),
+(9,'Squad.L',5,4);
 /*!40000 ALTER TABLE `tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,6 +377,7 @@ CREATE TABLE `users` (
   `users_nom` varchar(20) DEFAULT NULL,
   `users_cat` varchar(1) DEFAULT NULL,
   `users_pwd` varchar(20) DEFAULT NULL,
+  `b_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`users_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -370,8 +389,8 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES
-(1,'admin','S','root_4CD4'),
-(3,'kender','A','Astudillo');
+(1,'admin','S','root_4CD4',NULL),
+(3,'kender','A','Astudillo',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -493,4 +512,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-06 21:31:08
+-- Dump completed on 2023-11-08  0:20:15

@@ -2,52 +2,9 @@
 # -*- coding: utf-8 -*-
 
 exec(open("CheckPerms.py").read())
+import CalculoBalistico as CB
 import math
-
-
-################################################################################
-
-def add_wobble(valor_inicial, porcentaje_maximo):
-    # Generar un número aleatorio entre -1 y 1
-    signo_aleatorio = (random.random() * 2) - 1
-
-    # Calcular el valor aleatorio dentro del rango
-    valor_aleatorio = signo_aleatorio * porcentaje_maximo * valor_inicial
-
-    # Calcular el valor final
-    valor_final = valor_inicial + valor_aleatorio
-
-    return valor_final
-################################################################################
-
-    
- 
-################################################################################
-
-def calc_impacto(latitud_inicial, longitud_inicial, direccion, distancia):
-    radio_tierra = 6371000
-    # Convertir la dirección en miliradianes a radianes
-    direccion_radianes = direccion/1000
-    # Convertir latitud y longitud inicial a radianes
-    latitud_radianes = math.radians(latitud_inicial)
-    longitud_radianes = math.radians(longitud_inicial)
-    # Calcular las coordenadas cartesianas del impacto
-    x_impacto = distancia * math.cos(direccion_radianes)
-    y_impacto = distancia * math.sin(direccion_radianes)
-    # Calcular las coordenadas esféricas del impacto
-    nueva_latitud_radianes = math.asin(math.sin(latitud_radianes) * math.cos(distancia / radio_tierra) + math.cos(latitud_radianes) * math.sin(distancia / radio_tierra) * math.cos(direccion_radianes))
-    nueva_longitud_radianes = longitud_radianes + math.atan2(math.sin(direccion_radianes) * math.sin(distancia / radio_tierra) * math.cos(latitud_radianes), math.cos(distancia / radio_tierra) - math.sin(latitud_radianes) * math.sin(nueva_latitud_radianes))
-    # Convertir las coordenadas esféricas del impacto a grados
-    latitud_impacto = math.degrees(nueva_latitud_radianes)
-    longitud_impacto = math.degrees(nueva_longitud_radianes)
-
-    return latitud_impacto, longitud_impacto
-################################################################################
-
 ##################### MAIN ######################
-
-
-
 
 if AccesoSes(usuario,clave):
 
@@ -58,9 +15,6 @@ if AccesoSes(usuario,clave):
     p1 = str(form.getvalue('latlon'))
     elev = int(form.getvalue('elevacion'))
     azimut = int(form.getvalue('azimut'))
-
-
-    print (elev,azimut)
 
     m_id = mapas.split(":")[1]
 
@@ -77,12 +31,14 @@ if AccesoSes(usuario,clave):
     lat = latlon[0]
     lon = latlon[1]
 
-    cursor.execute(f'select a_vi from ammo where a_id = {a_id}')
-    Vi = int((cursor.fetchone())[0])
+    cursor.execute(f'select a_vi,a_mil from ammo where a_id = {a_id}')
+    r = cursor.fetchone()
+    Vi = int(r[0])
+    MIL = int(r[1])
+    FACTOR_MIL = float(MIL/(2*3.14159*1000))
 
-    print (Vi)
-    distancia = ((Vi ** 2 * math.sin( 2 * (elev/1000) )) / 9.81)
-    lati, loni = calc_impacto(float(lat),float(lon), azimut, distancia)
+    distancia = ((Vi ** 2 * math.sin( 2 * ( (elev/FACTOR_MIL ) /1000) )) / 9.81)
+    lati, loni = CB.calc_impacto(float(lat),float(lon), azimut/FACTOR_MIL, distancia)
 
     cursor.execute(f'insert into disparo \
         (d_lato,d_lono,d_latd,d_lond,m_id,b_id,w_id,a_id,d_dist) \
@@ -93,6 +49,9 @@ if AccesoSes(usuario,clave):
     html = f"""
         <form id="redirectForm" method="post" action="ver_map.py">
             <input type="hidden" name="mapas" value="{mapas}">
+            <input type="hidden" name="bando" value="{b}">
+            <input type="hidden" name="verDisp" value="1">
+            <input type="hidden" name="limite_disp" value="1">
             {userpas}
         </form>
         <script>

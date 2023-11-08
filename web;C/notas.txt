@@ -26,8 +26,12 @@ docker cp nombre_del_contenedor_mariadb:/ruta/para/el/archivo.sql archivo.sql
 
 
 RESTORE:
-docker cp archivo.sql nombre_del_contenedor_mariadb:/ruta/en/el/contenedor/archivo.sql
 
-docker exec -it nombre_del_contenedor_mariadb /bin/bash
+si el sql viene de un github ya queda en posicion, saltar al punto 3
+1) docker cp archivo.sql nombre_del_contenedor_mariadb:/ruta/en/el/contenedor/archivo.sql
 
-mysql -u admin_tiro -p tiro_db < /ruta/en/el/contenedor/archivo.sql
+2) docker exec -it nombre_del_contenedor_mariadb /bin/bash
+
+3) mysql -u admin_tiro -p -h 172.18.0.2 tiro_db < tiro_db-bkp.sql
+
+(poner la IP del contenedor donde corre la mariaDB, en este ejemplo es 172.18.0.2)

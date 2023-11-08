@@ -9,9 +9,10 @@ exec(open('CONFIGURACION.ini').read())
 
 print('Content-Type:text/html;charset=utf-8\r\n')
 print('\r\n')
-import pymysql, uuid, cgitb, cgi, sys, os
-cgitb.enable()
 
+import uuid, cgitb, cgi, sys, os
+cgitb.enable()
+import pymysql
 dbb = pymysql.connect(db=DB_NAME,user=DB_USER,passwd=DB_USER_PW,host=DB_HOST)
 cursor = dbb.cursor()
 
