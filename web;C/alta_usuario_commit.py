@@ -18,20 +18,22 @@ def encrip(pw):
 username = form.getvalue('username')
 pass1 = form.getvalue('pass1')
 pass2 = form.getvalue('pass2')
-usercat = form.getvalue('usercat')
+uc = form.getvalue('usercat')
+usercat=uc.split(':')[1]
+
 #print (usercat,pass1,pass2,username)
-userpas = f"<input type=\"hidden\" name=\"usuario\" value=\"{usuario}\" id=\"usuario\" >  <input type=\"hidden\" name=\"clave\" value=\"{clave}\" id=\"clave\" >"
+#userpas = f"<input type=\"hidden\" name=\"usuario\" value=\"{usuario}\" id=\"usuario\" >  <input type=\"hidden\" name=\"clave\" value=\"{clave}\" id=\"clave\" >"
 
-
+print(f'')
 if AccesoSes(usuario,clave) and AccesoAdmin(usuario):  
 	if (pass1 == pass2) and (pass1 != None) and (username != None):
-		q = f'insert into users (users_nom, users_pwd, users_cat) values ("{username}","{encrip(pass1)}","{usercat}")'
-		#print(q)
+		q = f'insert into users (users_nom, users_pwd, users_cat, users_enable) values ("{username}","{encrip(pass1)}","{usercat}",1)'
+#		print(q)
 		cursor.execute(q)
 		dbb.commit()
 		
 		print ("<center><h4>USUARIO CREADO CORRECTAMENTE")
-		print ('<form method="post" action="alta_usuario.py">')
+		print ('<form method="post" action="useradmin.py">')
 		print (userpas)
 		print ('<input type="submit" value="VOLVER" />')
 		print ("</form><br></h4></center>")

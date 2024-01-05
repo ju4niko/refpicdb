@@ -41,3 +41,63 @@ TO DO LIST:
 
 - agregar housekeeping task que borre disparos viejos y usuarios con fecha de eliminacion
 - modificar checkperms.py para verificar usuarios habilitados o no, y vencidos de fecha
+- permitir login de jugadores habilitados para disparar
+
+
+
+
+
+
+
+
+
+POST /medicion HTTP/1.1
+Content-Type: application/json
+User-Agent: PostmanRuntime/7.34.0
+Accept: */*
+Postman-Token: a268507c-db70-45b0-9162-25ee219ab650
+Host: 127.0.0.1:17001
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Length: 32
+
+{
+    "val1": 5,
+    "val2": 1
+}
+
+HTTP/1.1 200 OK
+Server: Werkzeug/3.0.1 Python/3.11.6
+Date: Tue, 14 Nov 2023 12:08:43 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 4
+Connection: close
+
+FIN
+
+curl -X POST http://127.0.0.1:17001/medicion -H 'Content-Type: application/json' -d '{ "val1": 5, "val2": 1}'
+
+
+#include <stdio.h>
+#include <curl/curl.h>
+int main(void) {
+    CURL *curl;
+    CURLcode res;
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+    curl = curl_easy_init();
+    if(curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, "http://127.0.0.1:17001/medicion");
+        curl_easy_setopt(curl, CURLOPT_POST, 1L);
+        struct curl_slist *headers = NULL;
+        headers = curl_slist_append(headers, "Content-Type: application/json");
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+        const char *data = "{\"val1\": 5, \"val2\": 1}";
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
+        res = curl_easy_perform(curl);
+        if(res != CURLE_OK) fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+        curl_easy_cleanup(curl);
+        curl_slist_free_all(headers);
+    }
+    curl_global_cleanup();
+    return 0;
+}
