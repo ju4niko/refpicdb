@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: tiroserver:latest  # Usa la imagen 'tiroserver' que ya tienes
+    image: refpicdbserver:latest  # Usa la imagen 'tiroserver' que ya tienes
     ports:
       - "80:80"
       - "15000:15000"  

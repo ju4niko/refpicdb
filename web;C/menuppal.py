@@ -38,7 +38,8 @@ if acceder:
 
 
 		############## SEGUIR AQUI ##############
-		b = 
+		b = "Ninguno" # FIX
+
 		html = f"""
 			<form id="redirectForm" method="post" action="disparo.py">
 				<input type="hidden" name="mapas" value="{mapas}">
